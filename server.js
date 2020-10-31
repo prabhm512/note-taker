@@ -2,7 +2,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const { notStrictEqual } = require("assert");
 
 // Express app set up 
 const app = express();
@@ -27,33 +26,31 @@ app.get("/notes", (req, res) => {
 })
 
 app.get("/api/notes", (req, res) => {
+   return res.json(notes);
+})
+
+app.delete("/api/notes/:id", (req, res) => {
+    let noteToDelete = req.params.id;
+
+    for (let i=0; i<notes.length; i++) {
+        if (parseInt(noteToDelete) === notes[i].id) {
+            notes.splice(i, 1);
+            writeFile("db/db.json", JSON.stringify(notes));
+        }
+    }
+    
     return res.json(notes);
 })
 
-app.get("/api/notes/:id", (req, res) => {
-    let deletedNote = req.params.id;
+function writeFile(filename, data) {
 
-    fs.readFile("db/db.json", (err, data) => {
+    fs.writeFile(filename, data, (err) => {
         if (err) {
-            console.log("Error when reading db.json in /api/notes/:id");
+            console.log("Error when appending data to db.json");
             console.log(err);
         }
-
-        else {
-            let parsedData = JSON.parse(data)
-
-            for (let i=0; i<parsedData.length; i++) {
-                if (parseInt(deletedNote) === parsedData[i].id) {
-                    return res.json(parsedData[i]);
-                }
-
-                else {
-                    return res.json(false);
-                }
-            }
-        }
     })
-})
+}
 
 app.post("/api/notes", (req, res) => {
 
@@ -62,18 +59,10 @@ app.post("/api/notes", (req, res) => {
         title: req.body.title,
         text: req.body.text
     }
-   
+    
     notes.push(savedNote);
 
-    fs.writeFile("db/db.json", JSON.stringify(notes), (err) => {
-        if (err) {
-            console.log("Error when appending data to db.json");
-            console.log(err);
-        }
-        else {
-            console.log("Successfully added notes to db.json!");
-        }
-    })
+    writeFile("db/db.json", JSON.stringify(notes));
 
     res.json(savedNote);
 })
