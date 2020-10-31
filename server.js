@@ -56,9 +56,26 @@ function writeFile(filename, data) {
 
 app.post("/api/notes", (req, res) => {
 
+    let noteID = notes.length+1;
+
+    // Check to see if ID is unique
+    for (let i=0; i<notes.length; i++) {
+        // If ID is note unique, get the highest ID and add 1 to it.
+        if (noteID === notes[i].id) {
+            let tempArrID = [];
+            for (let j=0; j<notes.length; j++) {
+                // Push all ID's from notes array into a temp array so all existing id's can be spread inside Math.max()
+                tempArrID.push(notes[j].id);
+            } 
+            let max = Math.max(...tempArrID);
+            // Add 1 to highest ID
+            noteID = max+1;
+        }
+    }
+
     // Recently saved note
     let savedNote = {
-        id: notes.length+1,
+        id: noteID,
         title: req.body.title,
         text: req.body.text
     }
