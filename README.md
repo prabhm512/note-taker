@@ -8,11 +8,11 @@ This application allows users to write, save and delete notes.
 
 ## Table of Contents
 
-[Usage](#-usage)  
-[License](#-licenses)  
-[Contributing](#-contributing)  
-[Deployment](#-deployment)  
-[Questions](#-questions)
+[Usage](#usage)  
+[License](#licenses)  
+[Contributing](#contributing)  
+[Deployment](#deployment)  
+[Questions](#questions)
 
 ## Usage
 
