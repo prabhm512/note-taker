@@ -32,6 +32,7 @@ app.get("/api/notes", (req, res) => {
 app.delete("/api/notes/:id", (req, res) => {
     let noteToDelete = req.params.id;
 
+    // If id of note to delete is in notes array then splice the array at that index
     for (let i=0; i<notes.length; i++) {
         if (parseInt(noteToDelete) === notes[i].id) {
             notes.splice(i, 1);
@@ -42,6 +43,7 @@ app.delete("/api/notes/:id", (req, res) => {
     return res.json(notes);
 })
 
+// Write db.json file.
 function writeFile(filename, data) {
 
     fs.writeFile(filename, data, (err) => {
@@ -54,12 +56,14 @@ function writeFile(filename, data) {
 
 app.post("/api/notes", (req, res) => {
 
+    // Recently saved note
     let savedNote = {
         id: notes.length+1,
         title: req.body.title,
         text: req.body.text
     }
     
+    // Push saved note into notes array
     notes.push(savedNote);
 
     writeFile("db/db.json", JSON.stringify(notes));
@@ -72,6 +76,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
+// Server listening on specified port number
 app.listen(PORT, () => {
     console.log(`App listening on localhost:${PORT}`);
 })
