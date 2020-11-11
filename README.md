@@ -12,6 +12,7 @@ This application allows users to write, save and delete notes.
 [License](#licenses)  
 [Contributing](#contributing)  
 [Deployment](#deployment)  
+[Visuals](#visuals)  
 [Questions](#questions)
 
 ## Usage
@@ -24,11 +25,16 @@ The underlying source code used to format and display this content is licensed u
 
 ## Contributing
 
-Prabh Singh
+Trilogy Education Services (Frontend)
+Prabh Singh (Backend)
 
 ## Deployment
 
 <a href="https://note-taker-ps.herokuapp.com/">Note Taker Deployment (click to open)</a>
+
+## Visuals
+
+<img src="./visuals/visual1.png">
 
 ## Questions
 
